@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Game } from '../../models/game';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-game',
@@ -28,12 +29,12 @@ export class GameComponent implements OnInit {
   takeCard() {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop();
-      console.log(this.currentCard);
       this.pickCardAnimation = true;
 
       setTimeout(() => {
         this.pickCardAnimation = false;
-      }, 1500);
+        this.game.playedCards.push(this.currentCard);
+      }, 1000);
     }
   }
 }
