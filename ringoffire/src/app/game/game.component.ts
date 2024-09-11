@@ -7,11 +7,12 @@ import { Game } from '../../models/game';
   standalone: true,
   imports: [CommonModule, GameComponent],
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
-  game: Game | undefined;
+  currentCard: string = '';
+  game: Game | any | string;
 
   constructor() {}
 
@@ -22,10 +23,17 @@ export class GameComponent implements OnInit {
   newGame() {
     this.game = new Game();
     console.log(this.game);
-    
   }
 
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation) {
+      this.currentCard = this.game.stack.pop();
+      console.log(this.currentCard);
+      this.pickCardAnimation = true;
+
+      setTimeout(() => {
+        this.pickCardAnimation = false;
+      }, 1500);
+    }
   }
 }
