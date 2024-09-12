@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatInputModule } from '@angular/material/input';
-
+import { GameRulesComponent } from '../game-rules/game-rules.component';
+import {MatCardContent, MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-game',
@@ -20,6 +21,9 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatDialogModule,
     MatInputModule,
+    GameRulesComponent,
+    MatCardModule, 
+    MatCardContent
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
@@ -37,7 +41,6 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
   }
 
   takeCard() {
