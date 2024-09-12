@@ -5,10 +5,10 @@ import { PlayerComponent } from '../player/player.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { DialogOverviewExampleDialog } from '../dialog-add-player/dialog-add-player.component';
 import { MatInputModule } from '@angular/material/input';
 import { GameRulesComponent } from '../game-rules/game-rules.component';
-import {MatCardContent, MatCardModule} from '@angular/material/card';
+import { MatCardContent, MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-game',
@@ -22,8 +22,8 @@ import {MatCardContent, MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatInputModule,
     GameRulesComponent,
-    MatCardModule, 
-    MatCardContent
+    MatCardModule,
+    MatCardContent,
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
@@ -49,7 +49,8 @@ export class GameComponent implements OnInit {
       this.pickCardAnimation = true;
 
       this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.game.currentPlayer =
+        this.game.currentPlayer % this.game.players.length;
 
       setTimeout(() => {
         this.pickCardAnimation = false;
@@ -59,10 +60,12 @@ export class GameComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      this.game.players.push(name);
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+      }
     });
   }
 }
